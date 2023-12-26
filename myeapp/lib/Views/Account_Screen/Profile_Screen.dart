@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:get/get.dart';
+import 'package:myeapp/Controllers/Auth_Controller.dart';
 import 'package:myeapp/Views/Account_Screen/Components/Details_Screenscard.dart';
+import 'package:myeapp/Views/auth_Screen/login_Screen.dart';
 import 'package:myeapp/WidgetsCommon/bg_widget.dart';
 import 'package:myeapp/WidgetsCommon/our_button.dart';
 import 'package:myeapp/consts/consts.dart';
@@ -54,7 +57,10 @@ class ProfileScreen extends StatelessWidget {
                 OutlinedButton(
                     style: OutlinedButton.styleFrom(
                         side: BorderSide(color: whiteColor)),
-                    onPressed: () {},
+                    onPressed: () async {
+                        await Get.put(AuthController()).SignoutMethod(context: context);
+                        Get.offAll(()=>Login_Screen());
+                    },
                     child: "logout".text.white.make()),
               ],
             ),
