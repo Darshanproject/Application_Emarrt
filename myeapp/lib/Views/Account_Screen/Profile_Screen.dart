@@ -1,9 +1,13 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:get/get.dart';
 import 'package:myeapp/Controllers/Auth_Controller.dart';
+import 'package:myeapp/Controllers/ProfileController.dart';
+import 'package:myeapp/Services/FireStore_Services.dart';
 import 'package:myeapp/Views/Account_Screen/Components/Details_Screenscard.dart';
+import 'package:myeapp/Views/Account_Screen/Edit_Profile_Screen.dart';
 import 'package:myeapp/Views/auth_Screen/login_Screen.dart';
 import 'package:myeapp/WidgetsCommon/bg_widget.dart';
 import 'package:myeapp/WidgetsCommon/our_button.dart';
@@ -11,13 +15,28 @@ import 'package:myeapp/consts/consts.dart';
 import 'package:myeapp/consts/lists.dart';
 
 class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({super.key});
+  final dynamic data;
+  const ProfileScreen({Key? key, this.data}):super(key:key);
 
   @override
   Widget build(BuildContext context) {
+    var controller =  Get.put(ProfileController());
     return bgWidget(
         child: Scaffold(
-      body: SafeArea(
+
+      body: StreamBuilder(stream: FirestoreServices.getUser(currentuser!.uid),
+       builder: (BuildContext context,AsyncSnapshot<QuerySnapshot> snapshot)
+       {
+        if(!snapshot.hasData){
+          return const Center(
+            child: CircularProgressIndicator(
+              valueColor: AlwaysStoppedAnimation(redColor),
+            ),
+          );
+        }else{
+          var data=snapshot.data!.docs[0];
+          return
+          SafeArea(
           child: Column(
         children: [
           ///edit profile buttons
@@ -26,10 +45,15 @@ class ProfileScreen extends StatelessWidget {
             child: const Align(
               alignment: Alignment.topRight,
               child: Icon(
-                Icons.edit,
+                 Icons.edit,
                 color: whiteColor,
+               
               ),
-            ).onTap(() {}),
+            ).onTap(() {
+              
+              controller.namecontroller.text=data['name'];
+              // controller.passcontroller.text=data['password'];
+              Get.to(()=>EditProfileScreen(data: data,));}),
           ),
 
           ///user details section
@@ -38,8 +62,14 @@ class ProfileScreen extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
+               data['imageurl']==''?
+               
                 Image.asset(
                   imgProfile2,
+                  width: 100,
+                  fit: BoxFit.cover,
+                ).box.roundedFull.clip(Clip.antiAlias).make():Image.network(
+                  data['imageurl'],
                   width: 100,
                   fit: BoxFit.cover,
                 ).box.roundedFull.clip(Clip.antiAlias).make(),
@@ -47,9 +77,9 @@ class ProfileScreen extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      credits.text.white.make(),
+                      "${data['name']}".text.white.make(),
                       20.widthBox,
-                      "gadadarshan2503@gmail.com".text.white.size(8).make(),
+                      "${data['email']}".text.white.size(8).make(),
                     ],
                   ).box.width(context.screenWidth * 0.3).make(),
                 ),
@@ -70,16 +100,16 @@ class ProfileScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Details_screens_card(
-                  Count: "00",
+                  Count: "${data['cart_count']}",
                   title: "In your Cart",
                   width: (context.screenWidth / 3.5)),
               Details_screens_card(
-                Count: "22",
+                Count: "${data['wishlist_count']}",
                 title: "in your wishlist",
                 width: (context.screenWidth / 3.5),
               ),
               Details_screens_card(
-                Count: "3037",
+                Count: "${data['order_count']}",
                 title: "in your Orders",
                 width: (context.screenWidth / 3.5),
               ),
@@ -119,7 +149,9 @@ class ProfileScreen extends StatelessWidget {
               .color(redColor)
               .make()
         ],
-      )),
+      ));
+        }
+       })
     ));
   }
 }

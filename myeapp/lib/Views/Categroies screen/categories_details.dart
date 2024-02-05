@@ -1,3 +1,4 @@
+import 'package:myeapp/Controllers/ProductController.dart';
 import 'package:myeapp/Views/Categroies%20screen/item_details.dart';
 import 'package:myeapp/WidgetsCommon/bg_widget.dart';
 import 'package:myeapp/consts/consts.dart';
@@ -14,6 +15,9 @@ class Categories_details extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    var controller = Get.find<ProductController>();
+
     return bgWidget(
       child: Scaffold(
         appBar: AppBar(
@@ -22,14 +26,15 @@ class Categories_details extends StatelessWidget {
         body: Container(
           padding: EdgeInsets.all(12),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SingleChildScrollView(
                 physics: BouncingScrollPhysics(),
                 scrollDirection: Axis.horizontal,
                 child: Row(
                     children: List.generate(
-                        6,
-                        (index) => "Baby Clothing"
+                        controller.subcat.length,
+                        (index) => controller.subcat[index]
                             .text
                             .size(12)
                             .fontFamily(semibold)

@@ -1,0 +1,17 @@
+// This file was generated from JSON Schema using quicktype, do not modify it directly.
+// To parse the JSON, add this file to your project and do:
+//
+//   let categoriesModel = try? JSONDecoder().decode(CategoriesModel.self, from: jsonData)
+
+import Foundation
+
+// MARK: - CategoriesModel
+struct CategoriesModel: Codable {
+    let categories: [Category]
+}
+
+// MARK: - Category
+struct Category: Codable {
+    let name: String
+    let subcategories: [String]
+}

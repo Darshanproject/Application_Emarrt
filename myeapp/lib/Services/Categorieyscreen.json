@@ -1,0 +1,75 @@
+{
+    "categories":[
+        {
+            "name":"Women Dresses",
+            "subcategories":[
+                "Wedding & Events",
+                "Tops & Sets",
+                "Watches"
+            ]
+        },
+        {
+            "name":"Man Clothing & Fashion",
+            "subcategories":[
+                "Wedding & Events",
+                "Shirts & Formals",
+                "Watches"
+            ]
+        },
+        {
+            "name":"Computers & Accesseries",
+            "subcategories":[
+                "Laptops ",
+                "Gaming Controllers ",
+                "Cpu"
+            ]
+        },
+        {
+            "name":"AutoMobiles",
+            "subcategories":[
+                "Cars ",
+                " Bikes "
+            ]
+        },
+        {
+            "name":"Kids & Toys",
+            "subcategories":[
+                "Clothes ",
+                "Toys",
+                "PS5"
+            ]
+        },
+        {
+            "name":"Sports",
+            "subcategories":[
+                "Bat",
+                "Swimming Clothes",
+                "Balls"
+            ]
+        },
+        {
+            "name":"Jewelery",
+            "subcategories":[
+                "Neckless ",
+                "Rings",
+                "Chains"
+            ]
+        },
+        {
+            "name":"Cellsphones & Tab",
+            "subcategories":[
+                "iPhone 15 pro Max",
+                "iPad",
+                "iPhone 14 pro Max"
+            ]
+        },
+        {
+            "name":"Furniture",
+            "subcategories":[
+                "Chairs",
+                "Table",
+                "Bed"
+            ]
+        }
+    ]
+}
